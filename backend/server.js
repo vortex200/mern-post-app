@@ -24,7 +24,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/api/account", require("./routes/account.routes"));
+app.use("/api/account", require("./routes/account"));
 app.use("/api/users", require("./routes/users.routes"));
 
 // if (process.env.NODE_ENV === "production") {
