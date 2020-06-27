@@ -2,4 +2,4 @@
 .prettierrc
 */node_modules
 .env
-/public
+/backend/public
