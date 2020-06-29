@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import UploadForm from "./UploadForm";
 import "./Admin.css";
 
 const Account = (input) => (
@@ -51,7 +50,7 @@ function deleteAccount(id) {
     });
 }
 
-function Admin() {
+function AdminPanel() {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
@@ -73,8 +72,6 @@ function Admin() {
 
   return (
     <Container>
-      <UploadForm />
-      <h1>update</h1>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -88,9 +85,12 @@ function Admin() {
           {itemList()}
         </thead>
       </Table>
+      <Button variant="primary" href={"/admin/new/"}>
+        New Item
+      </Button>
       <ToastContainer />
     </Container>
   );
 }
 
-export default Admin;
+export default AdminPanel;

@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 
 function Home() {
   const [item, setItem] = useState({});
-  const itemId = window.location.pathname.replace("/item/", "");
+  const itemId = window.location.pathname.replace("/items/", "");
 
   useEffect(() => {
     axios

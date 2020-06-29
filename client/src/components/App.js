@@ -3,10 +3,11 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import {
   NavBar,
   Home,
-  Admin,
+  AdminPanel,
+  NewItem,
+  EditItem,
   Login,
   Register,
-  EditAccount,
   ItemPage,
 } from "./index";
 
@@ -15,12 +16,13 @@ const App = () => {
     <Router>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/admin" component={Admin} />
-        <Route path="/admin/edit/:id" component={EditAccount} />
+        <Route exact path="/items" component={Home} />
+        <Route path="/items/:id" component={ItemPage} />
+        <Route exact path="/admin" component={AdminPanel} />
+        <Route path="/admin/new" component={NewItem} />
+        <Route path="/admin/edit/:id" component={EditItem} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/item/:id" component={ItemPage} />
       </Switch>
     </Router>
   );

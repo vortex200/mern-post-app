@@ -7,7 +7,7 @@ import "./AccountList.css";
 const Account = (input) => (
   <Row
     className="account-area"
-    onClick={() => (window.location.pathname = "/item/" + input.data._id)}
+    onClick={() => (window.location.pathname = "/items/" + input.data._id)}
   >
     <Col md={{ span: 2, offset: 1 }}>
       <Image

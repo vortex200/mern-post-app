@@ -1,20 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Categories from "../shared/Categories";
-import "./UploadForm.css";
+import Categories from "../../shared/Categories";
 
-function UploadForm() {
+function EditItem() {
   const categories = Categories;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Team Fortress 2");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
+  const accountId = window.location.pathname.replace("/admin/edit/", "");
+
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_API_URL + "/api/account/" + accountId)
+      .then((res) => {
+        if (res.status === 200) {
+          const oldtitle = res.data.result.title;
+          const oldDescription = res.data.result.description;
+          const oldCategory = res.data.result.category;
+          const oldPrice = res.data.result.price;
+          setTitle(oldtitle);
+          setDescription(oldDescription);
+          setCategory(oldCategory);
+          setPrice(oldPrice);
+        } else {
+          console.log(res);
+          toast.warning("Error getting account data... Unexpected status");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.warning("Error getting account data...");
+      });
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,19 +55,24 @@ function UploadForm() {
         "Content-Type": "multipart/form-data",
       },
     };
+
     axios
-      .post(process.env.REACT_APP_API_URL + "/api/account", formData, config)
+      .post(
+        process.env.REACT_APP_API_URL + "/api/account/" + accountId,
+        formData,
+        config
+      )
       .then((res) => {
         if (res.status === 200) {
-          window.location.reload(false);
+          window.location.pathname = "/admin";
         } else {
           console.log(res);
-          toast.warning("Error uploading account... Unexpected status");
+          toast.warning("Error updating account... Unexpected status");
         }
       })
       .catch((err) => {
         console.log(err);
-        toast.warning("Error uploading account...");
+        toast.warning("Error updating account...");
       });
   }
 
@@ -57,15 +87,16 @@ function UploadForm() {
       case "title":
         setTitle(e.target.value);
         break;
-      case "price":
-        setPrice(e.target.value);
+      case "description":
+        setDescription(e.target.value);
         break;
       case "category":
         setCategory(e.target.value);
         break;
-      case "description":
-        setDescription(e.target.value);
+      case "price":
+        setPrice(e.target.value);
         break;
+
       case "image":
         setImage(e.target.files[0]);
         break;
@@ -73,8 +104,8 @@ function UploadForm() {
   }
 
   return (
-    <>
-      <Form onSubmit={handleSubmit} className="form-area">
+    <Container>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formTitle">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -121,14 +152,16 @@ function UploadForm() {
             </Form.Group>
           </Col>
         </Row>
+
         <input type="file" name="image" onChange={handleChange} />
+
         <Button variant="primary" type="submit">
           Submit
         </Button>
         <ToastContainer />
       </Form>
-    </>
+    </Container>
   );
 }
 
-export default UploadForm;
+export default EditItem;
