@@ -1,6 +1,14 @@
 import React from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import { NavBar, Home, Admin, Login, Register, EditAccount } from "./index";
+import {
+  NavBar,
+  Home,
+  Admin,
+  Login,
+  Register,
+  EditAccount,
+  ItemPage,
+} from "./index";
 
 const App = () => {
   return (
@@ -12,6 +20,7 @@ const App = () => {
         <Route path="/admin/edit/:id" component={EditAccount} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/item/:id" component={ItemPage} />
       </Switch>
     </Router>
   );

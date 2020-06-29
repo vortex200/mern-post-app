@@ -5,18 +5,23 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Categories from "../shared/Categories";
+import "./UploadForm.css";
 
 function UploadForm() {
-  const [value, setvalue] = useState("");
+  const categories = Categories;
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("Team Fortress 2");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("value", value);
+    formData.append("title", title);
     formData.append("description", description);
+    formData.append("category", category);
     formData.append("price", price);
     formData.append("image", image);
 
@@ -41,13 +46,22 @@ function UploadForm() {
       });
   }
 
+  function optionList() {
+    return categories.map((item, index) => {
+      return <option key={index * Math.random(0, 1)}>{item}</option>;
+    });
+  }
+
   function handleChange(e) {
     switch (e.target.name) {
-      case "value":
-        setvalue(e.target.value);
+      case "title":
+        setTitle(e.target.value);
         break;
       case "price":
         setPrice(e.target.value);
+        break;
+      case "category":
+        setCategory(e.target.value);
         break;
       case "description":
         setDescription(e.target.value);
@@ -61,16 +75,38 @@ function UploadForm() {
   return (
     <>
       <Form onSubmit={handleSubmit} className="form-area">
+        <Form.Group controlId="formTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            type="text"
+            name="title"
+            value={title}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            name="description"
+            value={description}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
         <Row>
           <Col>
-            <Form.Group controlId="formvalue">
-              <Form.Label>Value</Form.Label>
+            <Form.Group controlId="formCategory">
+              <Form.Label>Category</Form.Label>
               <Form.Control
-                type="text"
-                name="value"
-                value={value}
+                as="select"
+                name="category"
+                value={category}
                 onChange={handleChange}
-              />
+              >
+                {optionList()}
+              </Form.Control>
             </Form.Group>
           </Col>
           <Col>
@@ -85,19 +121,7 @@ function UploadForm() {
             </Form.Group>
           </Col>
         </Row>
-
-        <Form.Group controlId="formDescription">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            name="description"
-            value={description}
-            onChange={handleChange}
-          />
-        </Form.Group>
-
         <input type="file" name="image" onChange={handleChange} />
-
         <Button variant="primary" type="submit">
           Submit
         </Button>

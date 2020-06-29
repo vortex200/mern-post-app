@@ -16,8 +16,9 @@ const Account = (input) => (
         style={{ width: "50px", height: "50px" }}
       />
     </td>
-    <td>{input.data.value}</td>
+    <td>{input.data.title}</td>
     <td>{input.data.description}</td>
+    <td>{input.data.category}</td>
     <td>{input.data.price}</td>
     <td>
       <ButtonGroup>
@@ -78,8 +79,9 @@ function Admin() {
         <thead>
           <tr>
             <th>Image</th>
-            <th>Value</th>
+            <th>Title</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Price</th>
             <th>Options</th>
           </tr>

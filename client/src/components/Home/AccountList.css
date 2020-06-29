@@ -1,0 +1,33 @@
+.account-area {
+  height: 144px;
+  padding: 2px 0;
+  margin: 20px 0;
+}
+
+.account-area:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.account-img {
+  height: 140px;
+  width: 140px;
+}
+
+.description-area {
+  position: relative;
+}
+
+.account-title {
+  margin: 10px 5px;
+}
+
+.account-category {
+  margin: 0 5px;
+}
+
+.account-price {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+}

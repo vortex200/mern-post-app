@@ -6,25 +6,29 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Categories from "../shared/Categories";
 
 function EditAccount() {
-  const [value, setvalue] = useState("");
+  const categories = Categories;
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const accountId = window.location.pathname.replace("/admin/edit/", "");
 
   useEffect(() => {
-    console.log(window.location.pathname.replace("/admin/edit/", ""));
     axios
       .get(process.env.REACT_APP_API_URL + "/api/account/" + accountId)
       .then((res) => {
         if (res.status === 200) {
-          const oldvalue = res.data.result.value;
+          const oldtitle = res.data.result.title;
           const oldDescription = res.data.result.description;
+          const oldCategory = res.data.result.category;
           const oldPrice = res.data.result.price;
-          setvalue(oldvalue);
+          setTitle(oldtitle);
           setDescription(oldDescription);
+          setCategory(oldCategory);
           setPrice(oldPrice);
         } else {
           console.log(res);
@@ -40,8 +44,9 @@ function EditAccount() {
   function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("value", value);
+    formData.append("title", title);
     formData.append("description", description);
+    formData.append("category", category);
     formData.append("price", price);
     formData.append("image", image);
 
@@ -71,17 +76,27 @@ function EditAccount() {
       });
   }
 
+  function optionList() {
+    return categories.map((item, index) => {
+      return <option key={index * Math.random(0, 1)}>{item}</option>;
+    });
+  }
+
   function handleChange(e) {
     switch (e.target.name) {
-      case "value":
-        setvalue(e.target.value);
-        break;
-      case "price":
-        setPrice(e.target.value);
+      case "title":
+        setTitle(e.target.value);
         break;
       case "description":
         setDescription(e.target.value);
         break;
+      case "category":
+        setCategory(e.target.value);
+        break;
+      case "price":
+        setPrice(e.target.value);
+        break;
+
       case "image":
         setImage(e.target.files[0]);
         break;
@@ -91,16 +106,38 @@ function EditAccount() {
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formTitle">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            type="text"
+            name="title"
+            value={title}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formDescription">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            type="text"
+            name="description"
+            value={description}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
         <Row>
           <Col>
-            <Form.Group controlId="formvalue">
-              <Form.Label>Profile ID</Form.Label>
+            <Form.Group controlId="formCategory">
+              <Form.Label>Category</Form.Label>
               <Form.Control
-                type="text"
-                name="value"
-                value={value}
+                as="select"
+                name="category"
+                value={category}
                 onChange={handleChange}
-              />
+              >
+                {optionList()}
+              </Form.Control>
             </Form.Group>
           </Col>
           <Col>
@@ -115,16 +152,6 @@ function EditAccount() {
             </Form.Group>
           </Col>
         </Row>
-
-        <Form.Group controlId="formDescription">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            type="text"
-            name="description"
-            value={description}
-            onChange={handleChange}
-          />
-        </Form.Group>
 
         <input type="file" name="image" onChange={handleChange} />
 

@@ -1,5 +1,4 @@
 *.DS_Store
-.prettierrc
 */node_modules
 .env
 /backend/public
