@@ -9,12 +9,17 @@ const accountSchema = new mongoose.Schema(
       type: String,
       default: () => nanoid(),
     },
-    value: {
+    title: {
       type: String,
       required: true,
     },
     description: {
       type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      enum: ["Team Fortress 2", "Counter-Strike: Global Offensive", "Rust"],
       required: true,
     },
     price: {

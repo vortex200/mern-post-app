@@ -23,14 +23,33 @@ module.exports = {
   },
 
   create: function (req, res) {
-    console.log(req.body.value, req.body.description, req.body.price, req.file);
-    if (req.body.value && req.body.description && req.body.price) {
-      const value = req.body.value;
+    console.log(
+      req.body.title,
+      req.body.description,
+      req.body.category,
+      req.body.price,
+      req.file
+    );
+    if (
+      req.body.title &&
+      req.body.description &&
+      req.body.category &&
+      req.body.price &&
+      req.file
+    ) {
+      const title = req.body.title;
       const description = req.body.description;
+      const category = req.body.category;
       const price = Number(req.body.price);
       const image = req.file.path;
 
-      const newAccount = new Account({ value, description, price, image });
+      const newAccount = new Account({
+        title,
+        description,
+        category,
+        price,
+        image,
+      });
       newAccount
         .save()
         .then(() => {
@@ -48,8 +67,9 @@ module.exports = {
     const _id = req.params.id;
     Account.findOne({ _id }, (err, doc) => {
       console.log(doc);
-      if (req.body.value) doc.value = req.body.value;
+      if (req.body.title) doc.title = req.body.title;
       if (req.body.description) doc.description = req.body.description;
+      if (req.body.category) doc.category = req.body.category;
       if (req.body.price) doc.price = req.body.price;
       if (req.file) doc.image = req.file.path;
 
