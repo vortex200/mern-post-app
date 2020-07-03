@@ -1,37 +1,41 @@
 import React from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
+import Button from "react-bootstrap/Button";
 import "./AccountList.css";
 
 const Account = (input) => (
-  <Row
-    className="account-area"
-    onClick={() => (window.location.pathname = "/items/" + input.data._id)}
-  >
-    <Col md={{ span: 2, offset: 1 }}>
+  <tr onClick={() => (window.location.pathname = "/items/" + input.data._id)}>
+    <td>{input.index + 1}</td>
+    <td md={{ span: 2, offset: 1 }}>
       <Image
         src={process.env.REACT_APP_API_URL + "/" + input.data.image}
-        className="account-img"
+        className="account-image"
         rounded
       />
-    </Col>
-    <Col md={8} className="description-area">
-      <h2 className="account-title">{input.data.title}</h2>
-      <h5 className="account-category">{input.data.category}</h5>
-      <h5 className="account-price">Price: {input.data.price}€</h5>
-    </Col>
-  </Row>
+    </td>
+    <td>{input.data.title}</td>
+    <td>{input.data.category}</td>
+    <td>Price: {input.data.price}€</td>
+    <td>
+      <Button>Buy</Button>
+    </td>
+  </tr>
 );
 
 function AccountTable(input) {
   function itemList(array) {
-    return array.map((item) => {
-      return <Account data={item} key={item.price * Math.random(0, 1)} />;
+    return array.slice(input.page.start, input.page.end).map((item, index) => {
+      return (
+        <Account
+          data={item}
+          index={index}
+          key={item.price * Math.random(0, 1)}
+        />
+      );
     });
   }
 
-  return <div>{itemList(input.data)}</div>;
+  return <tbody>{itemList(input.data)}</tbody>;
 }
 
 export default AccountTable;
