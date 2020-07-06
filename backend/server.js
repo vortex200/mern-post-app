@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api/account", require("./routes/account"));
-app.use("/api/users", require("./routes/users.routes"));
+app.use("/api/user", require("./routes/user.js"));
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));

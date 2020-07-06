@@ -11,17 +11,15 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email, password);
     axios
-      .post(process.env.REACT_APP_API_URL + "/api/users/login", {
+      .post(process.env.REACT_APP_API_URL + "/api/user/login", {
         email,
         password,
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
-          toast.success("Succesfully logged in!");
-          // window.location.reload(false);
+          localStorage.setItem("authToken", res.data.token);
+          window.location.href = "/";
         } else {
           toast.warning("Error logging in... Unexpected status");
           console.log(res);
@@ -29,24 +27,6 @@ function Login() {
       })
       .catch((err) => {
         toast.warning("Error logging in...");
-        console.log(err);
-      });
-  }
-
-  function handleCheck() {
-    axios
-      .get(process.env.REACT_APP_API_URL + "/api/users/auth")
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res);
-          toast.success("User logged in!");
-        } else {
-          toast.warning("User not logged in... Unexpected status");
-          console.log(res);
-        }
-      })
-      .catch((err) => {
-        toast.warning("User not logged in...");
         console.log(err);
       });
   }
@@ -77,9 +57,6 @@ function Login() {
         </Button>
         <Button variant="success" href="/register">
           Register
-        </Button>
-        <Button variant="info" onClick={handleCheck}>
-          Check
         </Button>
       </Form>
       <ToastContainer />

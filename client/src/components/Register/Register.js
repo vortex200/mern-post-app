@@ -13,13 +13,12 @@ function Login() {
     e.preventDefault();
     console.log(email, password);
     axios
-      .post(process.env.REACT_APP_API_URL + "/api/users/register", {
+      .post(process.env.REACT_APP_API_URL + "/api/user/register", {
         email,
         password,
       })
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Account succesfully registered!");
           window.location.reload(false);
         } else {
           toast.warning("Error registering account... Unexpected status");

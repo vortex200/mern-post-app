@@ -8,9 +8,9 @@ import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import AccountList from "./AccountList";
 import Categories from "../shared/Categories";
-import "./Home.css";
+import "./Items.css";
 
-function Home() {
+function Items() {
   const categories = Categories;
   const pageLength = 5;
   const [accounts, setAccounts] = useState([]);
@@ -197,4 +197,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Items;
