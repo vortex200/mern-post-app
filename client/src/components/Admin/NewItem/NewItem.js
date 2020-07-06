@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Categories from "../../shared/Categories";
+import SetHeaders from "../../shared/SetHeaders";
 import "./NewItem.css";
 
 function UploadForm() {
@@ -25,11 +26,8 @@ function UploadForm() {
     formData.append("price", price);
     formData.append("image", image);
 
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    const config = SetHeaders();
+
     axios
       .post(process.env.REACT_APP_API_URL + "/api/account", formData, config)
       .then((res) => {

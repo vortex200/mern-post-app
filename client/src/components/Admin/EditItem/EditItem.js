@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Categories from "../../shared/Categories";
+import SetHeaders from "../../shared/SetHeaders";
 
 function EditItem() {
   const categories = Categories;
@@ -50,11 +51,7 @@ function EditItem() {
     formData.append("price", price);
     formData.append("image", image);
 
-    const config = {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    const config = SetHeaders();
 
     axios
       .post(

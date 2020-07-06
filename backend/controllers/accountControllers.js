@@ -23,13 +23,10 @@ module.exports = {
   },
 
   create: function (req, res) {
-    console.log(
-      req.body.title,
-      req.body.description,
-      req.body.category,
-      req.body.price,
-      req.file
-    );
+    if (!req.user && !req.user.role === "Admin") {
+      return res.status(400).json({ error: "no access" });
+    }
+
     if (
       req.body.title &&
       req.body.description &&
@@ -53,13 +50,13 @@ module.exports = {
       newAccount
         .save()
         .then(() => {
-          res.status(200).json({ status: "success" });
+          return res.status(200).json({ status: "success" });
         })
         .catch((err) => {
-          res.status(500).json({ error: "error saving model: " + err });
+          return res.status(500).json({ error: "error saving model: " + err });
         });
     } else {
-      res.status(500).json({ error: "bad request" });
+      return res.status(500).json({ error: "bad request" });
     }
   },
 

@@ -1,4 +1,2 @@
-Login functionallity
-Jsonwebtoken
-passport
-localStorage
+My Orders:
+show transactions

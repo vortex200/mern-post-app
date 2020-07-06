@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import "./index.css";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -26,12 +29,16 @@ function NavBar() {
               <Nav className="ml-auto">
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/items">Items</Nav.Link>
-                <Nav.Link href="/admin">Admin</Nav.Link>
-                <Nav.Link href="/auth">Auth</Nav.Link>
                 {state.isAuth ? (
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  <DropdownButton variant="success" title="My Account">
+                    <Dropdown.Item href="/auth">Profile</Dropdown.Item>
+                    <Dropdown.Item href="/admin">Admin</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </DropdownButton>
                 ) : (
-                  <Nav.Link href="/login">Login</Nav.Link>
+                  <Button variant="primary" href="/login">
+                    Login
+                  </Button>
                 )}
               </Nav>
             </Navbar.Collapse>
