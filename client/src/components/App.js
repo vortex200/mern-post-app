@@ -8,7 +8,6 @@ import {
   EditItem,
   Login,
   Register,
-  ItemPage,
 } from "./index";
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route exact path="/items" component={Home} />
-        <Route path="/items/:id" component={ItemPage} />
         <Route exact path="/admin" component={AdminPanel} />
         <Route path="/admin/new" component={NewItem} />
         <Route path="/admin/edit/:id" component={EditItem} />

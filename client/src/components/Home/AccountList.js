@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import Accordion from "react-bootstrap/Accordion";
 import "./AccountList.css";
 
 const Account = (input) => (
-  <tr onClick={() => (window.location.pathname = "/items/" + input.data._id)}>
+  <tr>
     <td>{input.index + 1}</td>
     <td md={{ span: 2, offset: 1 }}>
       <Image
@@ -13,7 +14,18 @@ const Account = (input) => (
         rounded
       />
     </td>
-    <td>{input.data.title}</td>
+    <td>
+      {input.data.title}
+      <Accordion defaultActiveKey="1">
+        <Accordion.Toggle as={Button} variant="link" eventKey="0">
+          More info!
+        </Accordion.Toggle>
+
+        <Accordion.Collapse eventKey="0">
+          <p>{input.data.description}</p>
+        </Accordion.Collapse>
+      </Accordion>
+    </td>
     <td>{input.data.category}</td>
     <td>Price: {input.data.price}€</td>
     <td>
