@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const Account = require("../models/account.model");
 
 module.exports = {
@@ -85,10 +87,15 @@ module.exports = {
     const _id = req.params.id;
     Account.findOneAndDelete({ _id }, (err, doc) => {
       if (err) {
-        res.status(500).json({ error: err });
+        return res.status(500).json({ error: err });
       } else {
         console.log("Deleted item: " + doc);
-        res.status(200).json({ status: "success" });
+        try {
+          fs.unlinkSync(path.join(__dirname, "..", doc.image));
+        } catch (error) {
+          console.log(error);
+        }
+        return res.status(200).json({ status: "success" });
       }
     });
   },
