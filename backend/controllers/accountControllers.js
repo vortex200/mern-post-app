@@ -25,7 +25,7 @@ module.exports = {
   },
 
   create: function (req, res) {
-    if (!req.user && !req.user.role === "Admin") {
+    if (!req.user && !req.user.role === "admin") {
       return res.status(400).json({ error: "no access" });
     }
 
