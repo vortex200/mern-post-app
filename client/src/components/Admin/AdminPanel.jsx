@@ -11,7 +11,7 @@ const Account = (input) => (
   <tr>
     <td>
       <img
-        src={process.env.REACT_APP_API_URL + "/" + input.data.image}
+        src={process.env.API_URL + "/" + input.data.image}
         style={{ width: "50px", height: "50px" }}
       />
     </td>
@@ -34,7 +34,7 @@ const Account = (input) => (
 
 function deleteAccount(id) {
   axios
-    .delete(process.env.REACT_APP_API_URL + "/api/account/" + id)
+    .delete(process.env.API_URL + "/api/account/" + id)
     .then((res) => {
       if (res.status === 200) {
         toast.success("Account deleted succesfully!");
@@ -55,7 +55,7 @@ function AdminPanel() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/api/account")
+      .get(process.env.API_URL + "/api/account")
       .then((res) => {
         setAccounts(res.data.result);
       })

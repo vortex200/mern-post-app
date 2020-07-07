@@ -2,14 +2,13 @@ import React from "react";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
-import "./AccountList.css";
 
 const Account = (input) => (
   <tr>
     <td>{input.index + 1}</td>
     <td md={{ span: 2, offset: 1 }}>
       <Image
-        src={process.env.REACT_APP_API_URL + "/" + input.data.image}
+        src={process.env.API_URL + "/" + input.data.image}
         className="account-image"
         rounded
       />

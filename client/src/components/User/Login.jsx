@@ -11,22 +11,22 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(email, password);
     axios
-      .post(process.env.REACT_APP_API_URL + "/api/user/register", {
+      .post(process.env.API_URL + "/api/user/login", {
         email,
         password,
       })
       .then((res) => {
         if (res.status === 200) {
-          window.location.reload(false);
+          localStorage.setItem("authToken", res.data.token);
+          window.location.href = "/";
         } else {
-          toast.warning("Error registering account... Unexpected status");
+          toast.warning("Error logging in... Unexpected status");
           console.log(res);
         }
       })
       .catch((err) => {
-        toast.warning("Error registering account...");
+        toast.warning("Error logging in...");
         console.log(err);
       });
   }
@@ -53,6 +53,9 @@ function Login() {
         </Form.Group>
 
         <Button variant="primary" type="submit">
+          Submit
+        </Button>
+        <Button variant="success" href="/register">
           Register
         </Button>
       </Form>

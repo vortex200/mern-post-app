@@ -1,7 +1,15 @@
 import NavBar from "./NavBar";
-import Items from "./Items";
+import Products from "./Products";
 import { AdminPanel, NewItem, EditItem } from "./Admin";
-import { Login, Register } from "./User";
-import Auth from "./Auth";
+import { Login, Register, Details } from "./User";
 
-export { NavBar, Items, AdminPanel, NewItem, EditItem, Login, Register, Auth };
+export {
+  NavBar,
+  Products,
+  AdminPanel,
+  NewItem,
+  EditItem,
+  Login,
+  Register,
+  Details,
+};

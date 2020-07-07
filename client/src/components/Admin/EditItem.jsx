@@ -20,7 +20,7 @@ function EditItem() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/api/account/" + accountId)
+      .get(process.env.API_URL + "/api/account/" + accountId)
       .then((res) => {
         if (res.status === 200) {
           const oldtitle = res.data.result.title;
@@ -54,11 +54,7 @@ function EditItem() {
     const config = SetHeaders();
 
     axios
-      .post(
-        process.env.REACT_APP_API_URL + "/api/account/" + accountId,
-        formData,
-        config
-      )
+      .post(process.env.API_URL + "/api/account/" + accountId, formData, config)
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/admin";

@@ -8,7 +8,6 @@ import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import AccountList from "./AccountList";
 import Categories from "Shared/Categories";
-import "./Items.css";
 
 function Items() {
   const categories = Categories;
@@ -22,7 +21,7 @@ function Items() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API_URL + "/api/account")
+      .get(process.env.API_URL + "/api/account")
       .then((res) => {
         setAccounts(res.data.result);
         setVisibleAccounts(res.data.result);
@@ -128,7 +127,10 @@ function Items() {
     let items = [];
 
     items.push(
-      <Pagination.Prev onClick={() => setPage(page === 1 ? 1 : page - 1)} />
+      <Pagination.Prev
+        key={Math.random(0, 1)}
+        onClick={() => setPage(page === 1 ? 1 : page - 1)}
+      />
     );
 
     for (
@@ -149,6 +151,7 @@ function Items() {
 
     items.push(
       <Pagination.Next
+        key={Math.random(0, 1)}
         onClick={() =>
           setPage(
             page === Math.ceil(visibleAccounts.length / pageLength)

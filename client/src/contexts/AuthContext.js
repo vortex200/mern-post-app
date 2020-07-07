@@ -32,7 +32,7 @@ const AuthContextProvider = (input) => {
     };
 
     axios
-      .get(process.env.REACT_APP_API_URL + "/api/user/auth", tokenConfig())
+      .get(process.env.API_URL + "/api/user/auth", tokenConfig())
       .then((res) => {
         if (res.status === 200) {
           setState({

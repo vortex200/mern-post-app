@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-function Auth() {
+function Details() {
   const { state } = useContext(AuthContext);
 
   return state.isLoading ? (
@@ -35,4 +35,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default Details;
