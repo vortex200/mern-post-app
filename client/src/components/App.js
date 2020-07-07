@@ -1,5 +1,10 @@
 import React from "react";
-import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  Switch,
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import {
   NavBar,
   Items,
@@ -10,7 +15,7 @@ import {
   Register,
   Auth,
 } from "./index";
-import { AuthContextProvider } from "../contexts/AuthContext";
+import { AuthContextProvider } from "Contexts/AuthContext";
 
 const App = () => {
   return (
@@ -18,6 +23,7 @@ const App = () => {
       <AuthContextProvider>
         <NavBar />
         <Switch>
+          <Redirect exact from="/" to="/items" />
           <Route exact path="/items" component={Items} />
           <Route exact path="/admin" component={AdminPanel} />
           <Route path="/admin/new" component={NewItem} />

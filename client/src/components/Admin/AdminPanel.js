@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import "./Admin.css";
+import "Styles/Admin.css";
 
 const Account = (input) => (
   <tr>

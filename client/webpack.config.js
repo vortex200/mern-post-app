@@ -5,8 +5,8 @@ const Dotenv = require("dotenv-webpack");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index_bundle.js",
+    path: path.join(__dirname, "..", "backend", "/build"),
+    filename: "bundle.js",
     publicPath: "/",
   },
   devtool: "inline-source-map",
@@ -32,6 +32,14 @@ module.exports = {
         loader: "url-loader?limit=100000",
       },
     ],
+  },
+  resolve: {
+    alias: {
+      Images: path.resolve(__dirname, "src", "assets", "img"),
+      Contexts: path.resolve(__dirname, "src", "contexts"),
+      Shared: path.resolve(__dirname, "src", "components", "shared"),
+      Styles: path.resolve(__dirname, "src", "assets", "styles"),
+    },
   },
   devServer: {
     historyApiFallback: true,

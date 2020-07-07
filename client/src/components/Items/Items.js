@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import AccountList from "./AccountList";
-import Categories from "../shared/Categories";
+import Categories from "Shared/Categories";
 import "./Items.css";
 
 function Items() {

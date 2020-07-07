@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import "./index.css";
-import { AuthContext } from "../../contexts/AuthContext";
+import "./NavBar.css";
+import { AuthContext } from "Contexts/AuthContext";
 
 function NavBar() {
   const { state, logout } = useContext(AuthContext);
@@ -27,19 +26,22 @@ function NavBar() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/items">Items</Nav.Link>
-                {state.isAuth ? (
-                  <DropdownButton variant="success" title="My Account">
-                    <Dropdown.Item href="/auth">Profile</Dropdown.Item>
-                    <Dropdown.Item href="/admin">Admin</Dropdown.Item>
-                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                  </DropdownButton>
-                ) : (
-                  <Button variant="primary" href="/login">
-                    Login
-                  </Button>
-                )}
+                <DropdownButton variant="success" title="My Account">
+                  {state.isAuth ? (
+                    <>
+                      <Dropdown.Item href="/auth">Profile</Dropdown.Item>
+                      <Dropdown.Item href="/admin">Admin</Dropdown.Item>
+                      <Dropdown.Item onClick={handleLogout}>
+                        Logout
+                      </Dropdown.Item>
+                    </>
+                  ) : (
+                    <>
+                      <Dropdown.Item href="/login">Login</Dropdown.Item>
+                      <Dropdown.Item href="/register">Register</Dropdown.Item>
+                    </>
+                  )}
+                </DropdownButton>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
