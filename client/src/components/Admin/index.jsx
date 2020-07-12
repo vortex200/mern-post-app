@@ -1,4 +1,4 @@
-import AdminPanel from "./AdminPanel";
+import AdminPanel from "./AdminPanel/AdminPanel";
 import NewItem from "./NewItem";
 import EditItem from "./EditItem";
 

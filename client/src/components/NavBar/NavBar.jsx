@@ -4,14 +4,14 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Button from "react-bootstrap/Button";
 import { AuthContext } from "Contexts/AuthContext";
 
 function NavBar() {
   const { state, logout } = useContext(AuthContext);
 
   function handleLogout() {
-    logout();
-    window.location.href = "/";
+    logout(() => (window.location.href = "/"));
   }
 
   if (state.isLoading) {
@@ -25,22 +25,22 @@ function NavBar() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">
-                <DropdownButton variant="success" title="My Account">
-                  {state.isAuth ? (
-                    <>
-                      <Dropdown.Item href="/auth">Profile</Dropdown.Item>
-                      <Dropdown.Item href="/admin">Admin</Dropdown.Item>
-                      <Dropdown.Item onClick={handleLogout}>
-                        Logout
-                      </Dropdown.Item>
-                    </>
-                  ) : (
-                    <>
-                      <Dropdown.Item href="/login">Login</Dropdown.Item>
-                      <Dropdown.Item href="/register">Register</Dropdown.Item>
-                    </>
-                  )}
-                </DropdownButton>
+                {state.isAuth ? (
+                  <DropdownButton variant="success" title="My Account">
+                    <Dropdown.Item href="/user/my-posts">
+                      My posts
+                    </Dropdown.Item>
+                    <Dropdown.Item href="/auth">Profile</Dropdown.Item>
+                    <Dropdown.Item href="/admin">Admin</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  </DropdownButton>
+                ) : (
+                  <>
+                    <Button variant="outline-primary" href="/login">
+                      Login
+                    </Button>
+                  </>
+                )}
               </Nav>
             </Navbar.Collapse>
           </Navbar>

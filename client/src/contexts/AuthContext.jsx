@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import SetHeaders from "Utils/SetHeaders";
 
 const AuthContext = createContext();
 
@@ -15,24 +16,8 @@ const AuthContextProvider = (input) => {
   }, []);
 
   const checkAuth = () => {
-    const tokenConfig = () => {
-      const token = localStorage.getItem("authToken");
-
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-        },
-      };
-
-      if (token) {
-        config.headers["x-auth-token"] = token;
-      }
-
-      return config;
-    };
-
     axios
-      .get(process.env.API_URL + "/api/user/auth", tokenConfig())
+      .get(process.env.API_URL + "/api/user/auth", SetHeaders())
       .then((res) => {
         if (res.status === 200) {
           setState({
@@ -52,8 +37,21 @@ const AuthContextProvider = (input) => {
       });
   };
 
-  const logout = () => {
-    localStorage.removeItem("authToken");
+  const logout = (cb) => {
+    axios
+      .get(process.env.API_URL + "/api/user/logout", SetHeaders())
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.removeItem("authToken");
+          cb(null);
+        } else {
+          cb("bad response status");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        cb(err);
+      });
   };
 
   return (

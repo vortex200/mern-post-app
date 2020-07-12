@@ -3,18 +3,16 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import {
   NavBar,
   Products,
-  AdminPanel,
-  NewItem,
-  EditItem,
-  Login,
-  Register,
+  // AdminPanel,
+  // NewItem,
+  // EditItem,
   Details,
+  Auth,
+  NewPost,
+  MyPosts,
+  EditPost,
 } from "./index";
 import { AuthContextProvider } from "Contexts/AuthContext";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const App = () => {
   return (
@@ -22,15 +20,15 @@ const App = () => {
       <AuthContextProvider>
         <NavBar />
         <Switch>
-          <Elements stripe={stripePromise}>
-            <Route exact path="/" component={Products} />
-            <Route exact path="/admin" component={AdminPanel} />
-            <Route path="/admin/new" component={NewItem} />
-            <Route path="/admin/edit/:id" component={EditItem} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/auth" component={Details} />
-          </Elements>
+          <Route exact path="/" component={Products} />
+          {/* <Route exact path="/admin" component={AdminPanel} />
+          <Route path="/admin/new" component={NewItem} />
+          <Route path="/admin/edit/:id" component={EditItem} /> */}
+          <Route path="/login" component={Auth} />
+          <Route path="/auth" component={Details} />
+          <Route path="/user/new-post" component={NewPost} />
+          <Route path="/user/my-posts" component={MyPosts} />
+          <Route path="/user/edit/:id" component={EditPost} />
         </Switch>
       </AuthContextProvider>
     </Router>

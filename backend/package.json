@@ -7,7 +7,8 @@
     "start": "concurrently \"node server\" \"npm start --prefix ../client\"",
     "devStart": "concurrently \"nodemon server\" \"npm start --prefix ../client\"",
     "production": "NODE_ENV=production node server.js",
-    "sass": "sass  ../client/src/assets/styles ./ --watch --no-source-map"
+    "sass": "sass  ../client/src/assets/scss:../client/src/assets/styles --watch --no-source-map",
+    "server": "nodemon server"
   },
   "author": "",
   "license": "ISC",

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const config = require("../utils/config");
 
 const userSchema = mongoose.Schema({
   email: {
@@ -13,7 +14,7 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin"],
+    enum: config.roles,
     default: "user",
   },
   token: {
@@ -22,5 +23,4 @@ const userSchema = mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;

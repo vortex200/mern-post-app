@@ -8,8 +8,7 @@ import Row from "react-bootstrap/Row";
 import Categories from "Utils/Categories";
 import SetHeaders from "Utils/SetHeaders";
 
-function UploadForm() {
-  const categories = Categories;
+function NewPost() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Team Fortress 2");
@@ -25,13 +24,11 @@ function UploadForm() {
     formData.append("price", price);
     formData.append("image", image);
 
-    const config = SetHeaders();
-
     axios
-      .post(process.env.API_URL + "/api/posts", formData, config)
+      .post(process.env.API_URL + "/api/posts", formData, SetHeaders())
       .then((res) => {
         if (res.status === 200) {
-          window.location.pathname = "/admin";
+          window.location.pathname = "/user/my-posts";
         } else {
           console.log(res);
           toast.warning("Error uploading account... Unexpected status");
@@ -44,7 +41,7 @@ function UploadForm() {
   }
 
   function optionList() {
-    return categories.map((item, index) => {
+    return Categories.map((item, index) => {
       return <option key={index}>{item}</option>;
     });
   }
@@ -128,4 +125,4 @@ function UploadForm() {
   );
 }
 
-export default UploadForm;
+export default NewPost;

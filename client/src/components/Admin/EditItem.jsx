@@ -6,8 +6,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Categories from "Shared/Categories";
-import SetHeaders from "Shared/SetHeaders";
+import Categories from "Utils/Categories";
+import SetHeaders from "Utils/SetHeaders";
 
 function EditItem() {
   const categories = Categories;
@@ -20,7 +20,7 @@ function EditItem() {
 
   useEffect(() => {
     axios
-      .get(process.env.API_URL + "/api/account/" + accountId)
+      .get(process.env.API_URL + "/api/posts/" + accountId)
       .then((res) => {
         if (res.status === 200) {
           const oldtitle = res.data.result.title;
@@ -54,7 +54,7 @@ function EditItem() {
     const config = SetHeaders();
 
     axios
-      .post(process.env.API_URL + "/api/account/" + accountId, formData, config)
+      .post(process.env.API_URL + "/api/posts/" + accountId, formData, config)
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/admin";

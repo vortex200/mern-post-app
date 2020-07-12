@@ -1,14 +1,8 @@
 const mongoose = require("mongoose");
-const { customAlphabet } = require("nanoid");
+const config = require("../utils/config");
 
-const nanoid = customAlphabet("1234567890", 5);
-
-const accountSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
-    _id: {
-      type: String,
-      default: () => nanoid(),
-    },
     title: {
       type: String,
       required: true,
@@ -19,7 +13,7 @@ const accountSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["Team Fortress 2", "Counter-Strike: Global Offensive", "Rust"],
+      enum: config.categories,
       required: true,
     },
     price: {
@@ -30,8 +24,12 @@ const accountSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    createdBy: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("account", accountSchema);
+module.exports = mongoose.model("post", postSchema);

@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import AccountList from "./AccountList";
-import Categories from "Shared/Categories";
+import Categories from "Utils/Categories";
 
 function Items() {
   const categories = Categories;
@@ -20,9 +20,11 @@ function Items() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
+    console.log(process.env.API_URL + "/api/posts");
     axios
-      .get(process.env.API_URL + "/api/account")
+      .get(process.env.API_URL + "/api/posts")
       .then((res) => {
+        console.log(res);
         setAccounts(res.data.result);
         setVisibleAccounts(res.data.result);
       })

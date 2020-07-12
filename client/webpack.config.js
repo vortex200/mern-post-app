@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.jsx",
   output: {
     path: path.join(__dirname, "..", "backend", "/build"),
     filename: "bundle.js",
@@ -38,8 +38,8 @@ module.exports = {
     alias: {
       Images: path.resolve(__dirname, "src", "assets", "img"),
       Contexts: path.resolve(__dirname, "src", "contexts"),
-      Shared: path.resolve(__dirname, "src", "components", "shared"),
       Styles: path.resolve(__dirname, "src", "assets", "styles"),
+      Utils: path.resolve(__dirname, "src", "utils"),
     },
   },
   devServer: {

@@ -8,7 +8,7 @@ const SetHeaders = () => {
   };
 
   if (token) {
-    config.headers["x-auth-token"] = token;
+    config.headers["Authorization"] = "Bearer " + token;
   }
 
   return config;
