@@ -1,18 +1,18 @@
 import React from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "Components/NavBar";
-import {
-  // AdminPanel,
-  // NewItem,
-  // EditItem,
-  NewPost,
-  MyPosts,
-  EditPost,
-} from "./components";
+// import {
+//   AdminPanel,
+//   NewItem,
+//   EditItem,
+// } from "./components";
 
-import Products from "./Pages/index";
-import Login from "./Pages/login";
-import Details from "./Pages/details";
+import Products from "Pages/index";
+import Login from "Pages/login";
+import Details from "Pages/details";
+import NewPost from "Pages/user/NewPost";
+import MyPosts from "Pages/user/MyPosts";
+import EditPost from "Pages/user/EditPost";
 
 import { AuthContextProvider } from "Contexts/AuthContext";
 

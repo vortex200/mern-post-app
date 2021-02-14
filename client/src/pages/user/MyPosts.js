@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Post from "./Post";
+import Post from "Components/Post";
 import SetHeaders from "Utils/SetHeaders";
 import http from "Utils/http-common";
 

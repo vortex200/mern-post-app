@@ -5,12 +5,10 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server",
-    "start:server": "node server/server",
     "start:dev": "concurrently \"nodemon server/server\" \"npm start --prefix client\"",
     "start:prod": "NODE_ENV=production node server/server",
     "build": "npm run build --prefix client",
     "heroku-prebuild": "npm install --prefix client && npm install --dev --prefix client",
-    "sass": "sass  client/src/assets/scss:client/src/assets/styles --watch --no-source-map",
     "install:all": "npm install && npm install --prefix client",
     "lint": "eslint ./server"
   },
@@ -26,8 +24,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.16",
     "morgan": "^1.10.0",
-    "multer": "^1.4.2",
-    "nanoid": "^3.1.20"
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
