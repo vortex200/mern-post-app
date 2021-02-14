@@ -51,7 +51,7 @@ const login = async (req, res) => {
 
     const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
     user.token = token;
-    const updatedUser = user.save();
+    const updatedUser = await user.save();
 
     res.status(200).json({
       loginSuccess: true,

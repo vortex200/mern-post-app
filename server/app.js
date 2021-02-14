@@ -7,6 +7,8 @@ const { cloudinaryConfig } = require("./utils/cloudinary");
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+
 app.use(morgan("dev"));
 app.use("/public/uploads", express.static("public/uploads"));
 app.use(cors());
@@ -25,5 +27,7 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 }
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT} 🚀`));
 
 module.exports = app;

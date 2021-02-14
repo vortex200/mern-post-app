@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("../utils/config");
 
 const userSchema = mongoose.Schema({
   email: {
@@ -14,7 +13,6 @@ const userSchema = mongoose.Schema({
   },
   role: {
     type: String,
-    enum: config.roles,
     default: "user",
   },
   token: {

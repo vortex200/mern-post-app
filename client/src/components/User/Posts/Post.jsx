@@ -1,9 +1,8 @@
 import React from "react";
-import axios from "axios";
+import http from "Utils/http-common";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SetHeaders from "Utils/SetHeaders";
-import Config from "Utils/Config";
 
 const Post = (input) => (
   <tr>
@@ -28,9 +27,8 @@ const Post = (input) => (
 );
 
 function deletePost(id) {
-  //Gotta fix this
-  axios
-    .delete(Config.BACKEND_URL + "/api/posts/" + id, SetHeaders())
+  http
+    .delete("/api/posts/" + id, SetHeaders())
     .then((res) => {
       if (res.status === 200) {
         window.location.reload(false);

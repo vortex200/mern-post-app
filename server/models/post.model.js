@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const config = require("../utils/config");
 
 const postSchema = new mongoose.Schema(
   {
@@ -13,7 +12,6 @@ const postSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: config.categories,
       required: true,
     },
     price: {

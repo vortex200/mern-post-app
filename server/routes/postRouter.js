@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-// const multer = require("../utils/multer");
 const { multerUploads } = require("../middleware/multer");
 
 const postCtrl = require("../controllers/postsControllers");
@@ -13,7 +12,7 @@ router.post("/", auth, multerUploads, postCtrl.create);
 
 router.get("/:id", postCtrl.getById);
 // Change to PUT
-// router.post("/:id", auth, multer.single("image"), postCtrl.updateById);
+router.post("/:id", auth, multerUploads, postCtrl.updateById);
 router.delete("/:id", auth, postCtrl.deleteById);
 
 module.exports = router;
