@@ -10,9 +10,9 @@ import { AuthContext } from "Contexts/AuthContext";
 function NavBar() {
   const { state, logout } = useContext(AuthContext);
 
-  function handleLogout() {
+  const handleLogout = () => {
     logout(() => (window.location.href = "/"));
-  }
+  };
 
   if (state.isLoading) {
     return <div></div>;

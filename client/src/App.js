@@ -1,17 +1,19 @@
 import React from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import NavBar from "Components/NavBar";
 import {
-  NavBar,
-  Products,
   // AdminPanel,
   // NewItem,
   // EditItem,
-  Details,
-  Auth,
   NewPost,
   MyPosts,
   EditPost,
-} from "./index";
+} from "./components";
+
+import Products from "./Pages/index";
+import Login from "./Pages/login";
+import Details from "./Pages/details";
+
 import { AuthContextProvider } from "Contexts/AuthContext";
 
 const App = () => {
@@ -24,7 +26,7 @@ const App = () => {
           {/* <Route exact path="/admin" component={AdminPanel} />
           <Route path="/admin/new" component={NewItem} />
           <Route path="/admin/edit/:id" component={EditItem} /> */}
-          <Route path="/login" component={Auth} />
+          <Route path="/login" component={Login} />
           <Route path="/auth" component={Details} />
           <Route path="/user/new-post" component={NewPost} />
           <Route path="/user/my-posts" component={MyPosts} />

@@ -5,11 +5,11 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
-import AccountList from "./AccountList";
+import AccountList from "Components/AccountList";
 import Categories from "Utils/Categories";
 import http from "Utils/http-common";
 
-function Items() {
+function Products() {
   const categories = Categories;
   const pageLength = 5;
   const [accounts, setAccounts] = useState([]);
@@ -201,4 +201,4 @@ function Items() {
   );
 }
 
-export default Items;
+export default Products;

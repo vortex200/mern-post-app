@@ -1,17 +1,4 @@
-import NavBar from "./NavBar";
-import Products from "./Products";
 import { AdminPanel, NewItem, EditItem } from "./Admin";
-import { Details, Auth, NewPost, MyPosts, EditPost } from "./User";
+import { NewPost, MyPosts, EditPost } from "./Posts";
 
-export {
-  NavBar,
-  Products,
-  AdminPanel,
-  NewItem,
-  EditItem,
-  Details,
-  Auth,
-  NewPost,
-  MyPosts,
-  EditPost,
-};
+export { AdminPanel, NewItem, EditItem, NewPost, MyPosts, EditPost };
