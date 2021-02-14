@@ -1,20 +1,20 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"node server\" \"npm start --prefix ../client\"",
-    "devStart": "concurrently \"nodemon server\" \"npm start --prefix ../client\"",
+    "start": "concurrently \"node server/server\" \"npm start --prefix client\"",
+    "start:server": "node server/server",
+    "devStart": "concurrently \"nodemon server\" \"npm start --prefix client\"",
     "production": "NODE_ENV=production node server.js",
-    "sass": "sass  ../client/src/assets/scss:../client/src/assets/styles --watch --no-source-map",
-    "server": "nodemon server"
+    "sass": "sass  client/src/assets/scss:client/src/assets/styles --watch --no-source-map",
+    "install:all": "npm install && npm install --prefix client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
-    "concurrently": "^5.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -25,6 +25,7 @@
     "nanoid": "^3.1.9"
   },
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.4"
   }
 }
