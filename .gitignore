@@ -1,6 +1,6 @@
 *.DS_Store
+client/node_modules
 /node_modules
-*/node_modules
 .env
 /server/public
-*/build
+/server/build
