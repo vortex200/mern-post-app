@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -7,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Categories from "Utils/Categories";
 import SetHeaders from "Utils/SetHeaders";
+import http from "Utils/http-common";
 
 function NewPost() {
   const [title, setTitle] = useState("");
@@ -24,8 +24,8 @@ function NewPost() {
     formData.append("price", price);
     formData.append("image", image);
 
-    axios
-      .post(process.env.API_URL + "/api/posts", formData, SetHeaders())
+    http
+      .post("/api/posts", formData, SetHeaders())
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/user/my-posts";

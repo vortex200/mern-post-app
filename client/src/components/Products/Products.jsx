@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -8,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
 import AccountList from "./AccountList";
 import Categories from "Utils/Categories";
+import http from "Utils/http-common";
 
 function Items() {
   const categories = Categories;
@@ -20,9 +20,8 @@ function Items() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    console.log(process.env.API_URL + "/api/posts");
-    axios
-      .get(process.env.API_URL + "/api/posts")
+    http
+      .get("/api/posts")
       .then((res) => {
         console.log(res);
         setAccounts(res.data.result);

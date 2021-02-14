@@ -3,12 +3,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import http from "Utils/http-common";
+import Config from "Utils/Config";
 
 const Account = (input) => (
   <tr>
     <td>
       <img
-        src={process.env.API_URL + "/" + input.data.image}
+        src={Config.BACKEND_URL + "/" + input.data.image}
         style={{ width: "50px", height: "50px" }}
       />
     </td>
@@ -30,8 +32,8 @@ const Account = (input) => (
 );
 
 function deleteAccount(id) {
-  axios
-    .delete(process.env.API_URL + "/api/posts/" + id)
+  http
+    .delete("/api/posts/" + id)
     .then((res) => {
       if (res.status === 200) {
         window.location.reload(false);

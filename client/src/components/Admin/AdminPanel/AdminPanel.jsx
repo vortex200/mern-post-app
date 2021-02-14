@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Account from "./Account";
+import http from "Utils/http-common";
 
 function AdminPanel() {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(process.env.API_URL + "/api/posts")
+    http
+      .get("/api/posts")
       .then((res) => {
         setAccounts(res.data.result);
       })

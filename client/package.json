@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "start": "webpack serve",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -39,7 +39,6 @@
     "@babel/preset-react": "*",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.2",
-    "dotenv-webpack": "^6.0.0",
     "eslint": "^7.20.0",
     "eslint-plugin-react": "^7.22.0",
     "file-loader": "^6.2.0",

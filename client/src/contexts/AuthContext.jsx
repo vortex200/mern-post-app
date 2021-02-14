@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import SetHeaders from "Utils/SetHeaders";
+import http from "Utils/http-common";
 
 const AuthContext = createContext();
 
@@ -16,8 +17,8 @@ const AuthContextProvider = (input) => {
   }, []);
 
   const checkAuth = () => {
-    axios
-      .get(process.env.API_URL + "/api/user/auth", SetHeaders())
+    http
+      .get("/api/user/auth", SetHeaders())
       .then((res) => {
         if (res.status === 200) {
           setState({
@@ -38,8 +39,8 @@ const AuthContextProvider = (input) => {
   };
 
   const logout = (cb) => {
-    axios
-      .get(process.env.API_URL + "/api/user/logout", SetHeaders())
+    http
+      .get("/api/user/logout", SetHeaders())
       .then((res) => {
         if (res.status === 200) {
           localStorage.removeItem("authToken");

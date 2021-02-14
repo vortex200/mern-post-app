@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import http from "Utils/http-common";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,8 +9,8 @@ function Login() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios
-      .post(process.env.API_URL + "/api/user/login", {
+    http
+      .post("/api/user/login", {
         email,
         password,
       })

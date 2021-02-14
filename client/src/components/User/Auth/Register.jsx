@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import http from "Utils/http-common";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -11,8 +11,8 @@ function Register() {
   function handleSubmit(e) {
     e.preventDefault();
     if (password === repeatPassword) {
-      axios
-        .post(process.env.API_URL + "/api/user/register", {
+      http
+        .post("/api/user/register", {
           email,
           password,
         })

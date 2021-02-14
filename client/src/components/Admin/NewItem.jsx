@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -7,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Categories from "Utils/Categories";
 import SetHeaders from "Utils/SetHeaders";
+import http from "Utils/http-common";
 
 function UploadForm() {
   const categories = Categories;
@@ -27,8 +27,8 @@ function UploadForm() {
 
     const config = SetHeaders();
 
-    axios
-      .post(process.env.API_URL + "/api/posts", formData, config)
+    http
+      .post("/api/posts", formData, config)
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/admin";

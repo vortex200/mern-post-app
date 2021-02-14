@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -8,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Categories from "Utils/Categories";
 import SetHeaders from "Utils/SetHeaders";
+import http from "Utils/http-common";
 
 function EditItem() {
   const categories = Categories;
@@ -19,8 +19,8 @@ function EditItem() {
   const accountId = window.location.pathname.replace("/admin/edit/", "");
 
   useEffect(() => {
-    axios
-      .get(process.env.API_URL + "/api/posts/" + accountId)
+    http
+      .get("/api/posts/" + accountId)
       .then((res) => {
         if (res.status === 200) {
           const oldtitle = res.data.result.title;
@@ -53,8 +53,8 @@ function EditItem() {
 
     const config = SetHeaders();
 
-    axios
-      .post(process.env.API_URL + "/api/posts/" + accountId, formData, config)
+    http
+      .post("/api/posts/" + accountId, formData, config)
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/admin";

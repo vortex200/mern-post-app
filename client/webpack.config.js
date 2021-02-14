@@ -1,13 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: path.resolve("src", "index.jsx"),
   output: {
     path: path.join(__dirname, "..", "server", "/build"),
     filename: "bundle.js",
-    publicPath: "/",
+    publicPath: "./",
   },
   devtool: "inline-source-map",
   module: {
@@ -15,21 +14,26 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: ["babel-loader"],
       },
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader",
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.jpg$/,
-        loader: "file-loader",
+        use: ["file-loader"],
       },
       {
         test: /\.png$/,
-        loader: "url-loader?limit=100000",
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 100000,
+            },
+          },
+        ],
       },
     ],
   },
@@ -45,9 +49,11 @@ module.exports = {
   devServer: {
     port: 3000,
     historyApiFallback: true,
+    compress: true,
+    open: true,
+    hot: true,
   },
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       template: "public/index.html",
     }),

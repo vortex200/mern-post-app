@@ -3,12 +3,13 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import SetHeaders from "Utils/SetHeaders";
+import Config from "Utils/Config";
 
 const Post = (input) => (
   <tr>
     <td>
       <img
-        src={process.env.API_URL + "/" + input.data.image}
+        src={Config.BACKEND_URL + "/" + input.data.image}
         style={{ width: "50px", height: "50px" }}
       />
     </td>
@@ -31,7 +32,7 @@ const Post = (input) => (
 
 function deletePost(id) {
   axios
-    .delete(process.env.API_URL + "/api/posts/" + id, SetHeaders())
+    .delete(Config.BACKEND_URL + "/api/posts/" + id, SetHeaders())
     .then((res) => {
       if (res.status === 200) {
         window.location.reload(false);
