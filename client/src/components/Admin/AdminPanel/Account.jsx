@@ -1,18 +1,13 @@
 import React from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import http from "Utils/http-common";
-import Config from "Utils/Config";
 
 const Account = (input) => (
   <tr>
     <td>
-      <img
-        src={Config.BACKEND_URL + "/" + input.data.image}
-        style={{ width: "50px", height: "50px" }}
-      />
+      <img src={input.data.image} style={{ width: "50px", height: "50px" }} />
     </td>
     <td>{input.data.title}</td>
     <td>{input.data.description}</td>

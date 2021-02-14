@@ -8,10 +8,7 @@ import Config from "Utils/Config";
 const Post = (input) => (
   <tr>
     <td>
-      <img
-        src={Config.BACKEND_URL + "/" + input.data.image}
-        style={{ width: "50px", height: "50px" }}
-      />
+      <img src={input.data.image} style={{ width: "50px", height: "50px" }} />
     </td>
     <td>{input.data.title}</td>
     <td>{input.data.description}</td>
@@ -31,6 +28,7 @@ const Post = (input) => (
 );
 
 function deletePost(id) {
+  //Gotta fix this
   axios
     .delete(Config.BACKEND_URL + "/api/posts/" + id, SetHeaders())
     .then((res) => {

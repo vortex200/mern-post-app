@@ -2,17 +2,12 @@ import React from "react";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
-import Config from "Utils/Config";
 
 const Account = (input) => (
   <tr>
     <td>{input.index + 1}</td>
     <td md={{ span: 2, offset: 1 }}>
-      <Image
-        src={Config.BACKEND_URL + "/" + input.data.image}
-        className="account-image"
-        rounded
-      />
+      <Image src={input.data.image} className="account-image" rounded />
     </td>
     <td>
       {input.data.title}

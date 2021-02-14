@@ -3,6 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const { cloudinaryConfig } = require("./utils/cloudinary");
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use("/public/uploads", express.static("public/uploads"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use("*", cloudinaryConfig);
 
 app.use("/api/user", require("./routes/userRouter.js"));
 app.use("/api/posts", require("./routes/postRouter.js"));

@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const Post = require("../models/post.model");
+const { uploadImage } = require("../utils/cloudinary");
 
 const getAll = function (req, res) {
   Post.find({}, (err, result) => {
@@ -23,20 +24,23 @@ const getById = function (req, res) {
   });
 };
 
-const create = function (req, res) {
+const create = async function (req, res) {
   if (
-    req.body.title &&
-    req.body.description &&
-    req.body.category &&
-    req.body.price &&
-    req.file &&
-    req.user
-  ) {
-    const title = req.body.title;
-    const description = req.body.description;
-    const category = req.body.category;
+    !req.body.title &&
+    !req.body.description &&
+    !req.body.category &&
+    !req.body.price &&
+    !req.file &&
+    !req.user
+  )
+    return res.status(500).json({ error: "bad request" });
+
+  try {
+    const upload = await uploadImage(req.file);
+
+    const { title, description, category } = req.body;
     const price = Number(req.body.price);
-    const image = req.file.path;
+    const image = upload.secure_url;
     const createdBy = req.user._id;
 
     const newPost = new Post({
@@ -48,17 +52,11 @@ const create = function (req, res) {
       createdBy,
     });
 
-    newPost
-      .save()
-      .then(() => {
-        return res.status(200).json({ status: "success" });
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({ error: "error saving model: " + err });
-      });
-  } else {
-    return res.status(500).json({ error: "bad request" });
+    await newPost.save();
+
+    return res.status(200).json({ status: "success" });
+  } catch (err) {
+    return res.status(500).json({ err });
   }
 };
 
