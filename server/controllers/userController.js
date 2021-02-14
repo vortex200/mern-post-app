@@ -1,24 +1,28 @@
-const User = require("../../models/user.model");
-const Post = require("../../models/post.model");
+const User = require("../models/user.model");
+const Post = require("../models/post.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
 const register = function (req, res) {
-  let email = req.body.email;
-  let password;
+  if (!req.body.email && !req.body.password)
+    return res
+      .status(500)
+      .json({ success: false, err: "Email or password not provided" });
+
+  let { email, password } = req.body;
 
   bcrypt.genSalt(saltRounds, function (err, salt) {
     if (err) return res.status(500).json({ success: false, err });
 
-    bcrypt.hash(req.body.password, salt, function (err, hash) {
+    bcrypt.hash(password, salt, function (err, hash) {
       if (err) return res.status(500).json({ success: false, err });
 
-      password = hash;
+      let hashedPassword = hash;
 
-      const newUser = new User({ email, password });
+      const newUser = new User({ email, password: hashedPassword });
 
-      newUser.save((err, userData) => {
+      newUser.save((err) => {
         if (err) {
           console.log(err);
           return res.status(500).json({ success: false, err });
@@ -31,14 +35,21 @@ const register = function (req, res) {
 };
 
 const login = function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, user) {
+  if (!req.body.email && !req.body.password)
+    return res
+      .status(500)
+      .json({ success: false, err: "Email or password not provided" });
+
+  const { email, password } = req.body;
+
+  User.findOne({ email }, function (err, user) {
     if (err || !user)
       return res.status(400).json({
         loginSuccess: false,
         message: "Auth failed, email not found",
       });
 
-    bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+    bcrypt.compare(password, user.password, (err, isMatch) => {
       if (!isMatch)
         return res.status(400).json({
           loginSuccess: false,
@@ -64,7 +75,7 @@ const login = function (req, res) {
 };
 
 const logout = function (req, res) {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, doc) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err) => {
     if (err) return res.status(500).json({ success: false, err });
     return res.status(200).json({
       success: true,

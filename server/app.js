@@ -12,7 +12,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/api", require("./routes/routes.js"));
+app.use("/api/user", require("./routes/userRouter.js"));
+app.use("/api/posts", require("./routes/postRouter.js"));
 
 if (process.env.NODE_ENV === "production") {
   console.log("Started in production");

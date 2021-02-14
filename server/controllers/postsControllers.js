@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const Post = require("../../models/post.model");
+const Post = require("../models/post.model");
 
 const getAll = function (req, res) {
   Post.find({}, (err, result) => {

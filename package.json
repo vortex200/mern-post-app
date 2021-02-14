@@ -11,7 +11,8 @@
     "build": "npm run build --prefix client",
     "heroku-prebuild": "npm install --prefix client && npm install --dev --prefix client",
     "sass": "sass  client/src/assets/scss:client/src/assets/styles --watch --no-source-map",
-    "install:all": "npm install && npm install --prefix client"
+    "install:all": "npm install && npm install --prefix client",
+    "lint": "eslint ./server"
   },
   "author": "Julijus Rancevas",
   "license": "ISC",
