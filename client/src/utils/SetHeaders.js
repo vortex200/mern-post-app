@@ -2,9 +2,7 @@ const SetHeaders = () => {
   const token = localStorage.getItem("authToken");
 
   const config = {
-    headers: {
-      "Content-type": "application/json",
-    },
+    headers: {},
   };
 
   if (token) {

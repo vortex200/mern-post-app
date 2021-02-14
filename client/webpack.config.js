@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: path.resolve("src", "index.jsx"),
+  entry: path.resolve("src", "index.js"),
   output: {
     path: path.join(__dirname, "..", "server", "/build"),
     filename: "bundle.js",
@@ -19,6 +19,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.s[ac]ss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.jpg$/,
@@ -42,7 +46,7 @@ module.exports = {
     alias: {
       Images: path.resolve(__dirname, "src", "assets", "img"),
       Contexts: path.resolve(__dirname, "src", "contexts"),
-      Styles: path.resolve(__dirname, "src", "assets", "styles"),
+      Styles: path.resolve(__dirname, "src", "scss"),
       Utils: path.resolve(__dirname, "src", "utils"),
     },
   },

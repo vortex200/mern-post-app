@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import "Styles/Login.css";
+import "Styles/Login.scss";
 import Login from "./Login";
 import Register from "./Register";
 

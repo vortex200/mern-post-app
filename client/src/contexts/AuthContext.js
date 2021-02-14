@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
 import SetHeaders from "Utils/SetHeaders";
 import http from "Utils/http-common";
 
