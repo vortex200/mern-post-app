@@ -15,7 +15,8 @@ app.use(bodyParser.json());
 app.use("/api", require("./routes/routes.js"));
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
+  console.log("Started in production");
+  app.use(express.static(path.resolve(__dirname, "build")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "build", "index.html"));

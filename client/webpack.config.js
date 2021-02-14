@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  entry: "./src/index.jsx",
+  entry: path.resolve("src", "index.jsx"),
   output: {
-    path: path.join(__dirname, "..", "backend", "/build"),
+    path: path.join(__dirname, "..", "server", "/build"),
     filename: "bundle.js",
     publicPath: "/",
   },
@@ -43,6 +43,7 @@ module.exports = {
     },
   },
   devServer: {
+    port: 3000,
     historyApiFallback: true,
   },
   plugins: [
