@@ -4,101 +4,96 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const saltRounds = 10;
 
-const register = function (req, res) {
-  if (!req.body.email && !req.body.password)
-    return res
-      .status(500)
-      .json({ success: false, err: "Email or password not provided" });
+const register = async (req, res) => {
+  try {
+    if (!req.body.email && !req.body.password)
+      return res
+        .status(500)
+        .json({ success: false, err: "Email or password not provided" });
 
-  let { email, password } = req.body;
+    const { email, password } = req.body;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-  bcrypt.genSalt(saltRounds, function (err, salt) {
-    if (err) return res.status(500).json({ success: false, err });
+    const newUser = new User({ email, password: hashedPassword });
 
-    bcrypt.hash(password, salt, function (err, hash) {
-      if (err) return res.status(500).json({ success: false, err });
+    await newUser.save();
 
-      let hashedPassword = hash;
-
-      const newUser = new User({ email, password: hashedPassword });
-
-      newUser.save((err) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ success: false, err });
-        } else {
-          return res.status(200).json({ success: true });
-        }
-      });
-    });
-  });
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    return res.status(500).json({ success: false, err });
+  }
 };
 
-const login = function (req, res) {
-  if (!req.body.email && !req.body.password)
-    return res
-      .status(500)
-      .json({ success: false, err: "Email or password not provided" });
+const login = async (req, res) => {
+  try {
+    if (!req.body.email && !req.body.password)
+      return res
+        .status(400)
+        .json({ success: false, err: "Email or password not provided" });
 
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  User.findOne({ email }, function (err, user) {
-    if (err || !user)
+    const user = await User.findOne({ email });
+
+    if (!user)
       return res.status(400).json({
         loginSuccess: false,
         message: "Auth failed, email not found",
       });
 
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (!isMatch)
-        return res.status(400).json({
-          loginSuccess: false,
-          message: "Auth failed, wrong password",
-        });
-
-      var token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
-      user.token = token;
-      user.save(function (err, user) {
-        if (err)
-          return res.status(500).json({
-            loginSuccess: false,
-            message: "Error saving model",
-          });
-
-        res.status(200).json({
-          loginSuccess: true,
-          token: user.token,
-        });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(400).json({
+        loginSuccess: false,
+        message: "Auth failed, wrong password",
       });
+
+    const token = jwt.sign(user._id.toHexString(), process.env.JWT_SECRET);
+    user.token = token;
+    const updatedUser = user.save();
+
+    res.status(200).json({
+      loginSuccess: true,
+      token: updatedUser.token,
     });
-  });
+  } catch (err) {
+    return res.status(500).json({
+      loginSuccess: false,
+      message: err,
+    });
+  }
 };
 
-const logout = function (req, res) {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err) => {
-    if (err) return res.status(500).json({ success: false, err });
+const logout = async (req, res) => {
+  try {
+    await User.findOneAndUpdate({ _id: req.user._id }, { token: "" });
+
     return res.status(200).json({
       success: true,
     });
-  });
+  } catch (err) {
+    return res.status(500).json({ success: false, err });
+  }
 };
 
-const auth = function (req, res) {
+const auth = (req, res) => {
   res.status(200).json({
     isAuth: true,
     user: req.user,
   });
 };
 
-const getPostsByUserId = function (req, res) {
-  const _id = req.user._id.toString();
-  Post.find({ createdBy: _id }, (err, result) => {
-    if (err) {
-      res.status(500).json({ err });
-    } else {
-      res.status(200).json({ result });
-    }
-  });
+const getPostsByUserId = async (req, res) => {
+  try {
+    const _id = req.user._id.toString();
+
+    const posts = await Post.find({ createdBy: _id });
+
+    res.status(200).json({ result: posts });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
 module.exports = {

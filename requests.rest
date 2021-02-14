@@ -1,6 +1,6 @@
 @token=eyJhbGciOiJIUzI1NiJ9.NjAyOGQ2ZDcxNzQyOWQwZTE2Y2NkZjU2.RucF36AnGu0upNRPhKpGcGu7KuoElAZMIilMZ18xDcA
-@email=test1@gmail.com
-@password=test1
+@email=test2@gmail.com
+@password=test2
 ###
 
 POST http://localhost:5000/api/user/register

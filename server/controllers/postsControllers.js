@@ -1,28 +1,28 @@
 const Post = require("../models/post.model");
 const { uploadImage } = require("../utils/cloudinary");
 
-const getAll = function (req, res) {
-  Post.find({}, (err, result) => {
-    if (err) {
-      res.status(500).json({ err });
-    } else {
-      res.status(200).json({ result });
-    }
-  });
+const getAll = async (req, res) => {
+  try {
+    const result = await Post.find({});
+
+    res.status(200).json({ result });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
-const getById = function (req, res) {
-  const _id = req.params.id;
-  Post.findOne({ _id }, (err, result) => {
-    if (err) {
-      res.status(500).json({ err });
-    } else {
-      res.status(200).json({ result });
-    }
-  });
+const getById = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const result = await Post.findOne({ _id });
+
+    res.status(200).json({ result });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
-const create = async function (req, res) {
+const create = async (req, res) => {
   if (
     !req.body.title &&
     !req.body.description &&
@@ -58,13 +58,13 @@ const create = async function (req, res) {
   }
 };
 
-const updateById = function (req, res) {
-  const _id = req.params.id;
-  const userId = req.user._id;
-  Post.findOne({ _id }, (err, doc) => {
-    if (err) {
-      res.status(500).json({ err });
-    }
+const updateById = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const userId = req.user._id;
+
+    const doc = await Post.findOne({ _id });
+
     // If post is not created by user
     if (userId.toString() !== doc.createdBy) {
       res.status(501).json({ err: "no access" });
@@ -75,19 +75,15 @@ const updateById = function (req, res) {
       if (req.body.price) doc.price = req.body.price;
       if (req.file) doc.image = req.file.path;
 
-      doc
-        .save()
-        .then(() => {
-          res.status(200).json({ status: "success" });
-        })
-        .catch((err) => {
-          res.status(500).json({ err });
-        });
+      await doc.save();
+      res.status(200).json({ status: "success" });
     }
-  });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
-const deleteById = async function (req, res) {
+const deleteById = async (req, res) => {
   try {
     const _id = req.params.id;
 
