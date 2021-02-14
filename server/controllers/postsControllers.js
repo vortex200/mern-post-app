@@ -1,5 +1,3 @@
-const fs = require("fs");
-const path = require("path");
 const Post = require("../models/post.model");
 const { uploadImage } = require("../utils/cloudinary");
 
@@ -89,27 +87,21 @@ const updateById = function (req, res) {
   });
 };
 
-const deleteById = function (req, res) {
-  const _id = req.params.id;
-  Post.findById(_id, (err, doc) => {
-    if (err) {
-      return res.status(500).json({ err });
+const deleteById = async function (req, res) {
+  try {
+    const _id = req.params.id;
+
+    const doc = await Post.findById(_id);
+
+    if (req.user._id.toString() === doc.createdBy) {
+      await doc.delete();
+      return res.status(200).json({ status: "success" });
     } else {
-      if (req.user._id.toString() === doc.createdBy) {
-        doc.delete((err, doc) => {
-          if (err) return res.status(500).json({ err });
-          try {
-            fs.unlinkSync(path.join(__dirname, "..", "..", doc.image));
-          } catch (error) {
-            console.log(error);
-          }
-          return res.status(200).json({ status: "success" });
-        });
-      } else {
-        return res.status(400).json({ error: "no access" });
-      }
+      return res.status(400).json({ error: "no access" });
     }
-  });
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
 };
 
 module.exports = {
