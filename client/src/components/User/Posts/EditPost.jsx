@@ -54,7 +54,7 @@ function EditItem() {
     const config = SetHeaders();
 
     http
-      .post("/api/posts/" + accountId, formData, config)
+      .put("/api/posts/" + accountId, formData, config)
       .then((res) => {
         if (res.status === 200) {
           window.location.pathname = "/user/my-posts";
