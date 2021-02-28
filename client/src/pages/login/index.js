@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import "Styles/Login.scss";
-import Login from "Components/Login";
-import Register from "Components/Register";
+import Login from "./Login";
+import Register from "./Register";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);

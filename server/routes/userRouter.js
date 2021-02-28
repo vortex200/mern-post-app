@@ -6,6 +6,7 @@ const userCtrl = require("../controllers/userController");
 const auth = require("../middleware/auth");
 
 router.post("/register", userCtrl.register);
+router.get("/activation", userCtrl.activateEmail);
 router.post("/login", userCtrl.login);
 router.get("/logout", auth, userCtrl.logout);
 router.get("/auth", auth, userCtrl.auth);

@@ -1,5 +1,5 @@
 const Post = require("../models/post.model");
-const { uploadImage } = require("../utils/cloudinary");
+const { uploadImage } = require("../lib/cloudinary");
 
 const getAll = async (req, res) => {
   try {

@@ -1,6 +1,6 @@
 @token=eyJhbGciOiJIUzI1NiJ9.NjAyOTJmNjhmODIxNTQzMDliNmUzMjdj.wfeimbo5-3yDQXiXw5LBK2BOO0O8Bfquah-d-bggcLY
-@email=test2@gmail.com
-@password=test2
+@email=caesaer@protonmail.com
+@password=test
 ###
 
 POST http://localhost:5000/api/user/register

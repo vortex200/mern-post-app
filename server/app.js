@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const { cloudinaryConfig } = require("./utils/cloudinary");
+const { cloudinaryConfig } = require("./lib/cloudinary");
 
 const app = express();
 

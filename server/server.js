@@ -1,5 +1,5 @@
 require("dotenv").config();
 
-require("./utils/database");
+require("./lib/database");
 
 require("./app");

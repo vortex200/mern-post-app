@@ -21,7 +21,7 @@ function NavBar() {
       <div className="navbar-area">
         <Container>
           <Navbar expand="lg">
-            <Navbar.Brand href="/">eShop</Navbar.Brand>
+            <Navbar.Brand href="/">Postapp</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto">

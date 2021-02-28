@@ -46,6 +46,7 @@ module.exports = {
     alias: {
       Components: path.resolve(__dirname, "src", "components"),
       Pages: path.resolve(__dirname, "src", "pages"),
+      Parts: path.resolve(__dirname, "src", "parts"),
       Contexts: path.resolve(__dirname, "src", "contexts"),
       Styles: path.resolve(__dirname, "src", "assets", "scss"),
       Utils: path.resolve(__dirname, "src", "utils"),
